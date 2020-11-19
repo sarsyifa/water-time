@@ -1,0 +1,36 @@
+package id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.dao;
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
+
+import java.util.List;
+
+import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.Event;
+
+@Dao
+public interface EventDao {
+    @Insert
+    public void insert(Event... reminders);
+
+    @Update
+    public void update(Event... reminders);
+
+    @Delete
+    public void delete(Event reminders);
+
+//    @Query("Select * from table_event order by remindDate")
+//    public List<Event> orderThetable();
+
+    @Query("Select * from table_event Limit 1")
+    public Event getRecentEnteredData();
+
+    @Query("Select * from table_event")
+    public List<Event> getAll();
+
+    @Query("DELETE FROM table_event")
+    public void deleteAllEvents();
+}
