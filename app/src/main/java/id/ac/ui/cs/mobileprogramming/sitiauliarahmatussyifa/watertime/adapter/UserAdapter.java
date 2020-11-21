@@ -29,7 +29,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View itemView = itemView.findViewById(R.id.welcome_textView)
         View itemView = mInflater.inflate(R.layout.profile_layout, parent, false);
         return new UserViewHolder(itemView);
     }

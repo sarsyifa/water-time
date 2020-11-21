@@ -25,7 +25,6 @@ import java.util.Date;
 
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.database.WaterConsumptionDatabase;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.Event;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.R;
 
 public class CreateEvent extends AppCompatActivity implements View.OnClickListener {
     Button btn_time, btn_date, btn_done;

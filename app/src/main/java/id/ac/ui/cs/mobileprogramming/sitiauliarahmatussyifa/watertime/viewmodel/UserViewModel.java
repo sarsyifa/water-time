@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.User;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.WaterConsumption;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.repositories.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {

@@ -29,7 +29,17 @@
             android:parentActivityName="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.MainActivity">
         </activity>
         <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.ReminderActivity" />
-
+        <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.NotificationMessage"></activity>
+        <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.CreateEvent" />
+        <receiver
+            android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.BootUpReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.NotifierAlarm"/>
     </application>
 
 </manifest>

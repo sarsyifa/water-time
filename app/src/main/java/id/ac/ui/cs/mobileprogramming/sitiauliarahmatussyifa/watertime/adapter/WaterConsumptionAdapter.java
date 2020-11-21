@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,7 @@ import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.R;
 public class WaterConsumptionAdapter extends RecyclerView.Adapter<WaterConsumptionAdapter.WaterConsumptionViewHolder> {
 
     public final LayoutInflater mInflater;
-    public List<WaterConsumption> mLog = new ArrayList<>(); // Cached copy of words
+    public List<WaterConsumption> mLog = new ArrayList<>(); // Cached copy of Log
     private OnItemClickListener listener;
 
     public WaterConsumptionAdapter(Context context) { mInflater = LayoutInflater.from(context); }
@@ -33,16 +32,10 @@ public class WaterConsumptionAdapter extends RecyclerView.Adapter<WaterConsumpti
 
     @Override
     public void onBindViewHolder(@NonNull WaterConsumptionViewHolder holder, int position) {
-//        if (mLog != null) {
             WaterConsumption current = mLog.get(position);
-//            holder.logItemView.setText(current.getWater_drunk());
             holder.textViewAmount.setText(String.valueOf(current.getWater_drunk()));
             holder.textViewDate.setText(current.getDate());
             holder.textViewTime.setText(current.getTime());
-//        } else {
-//            // Covers the case of data not being ready yet.
-//            holder.logItemView.setText("0 mL");
-//        }
     }
 
     public void setLogs(List<WaterConsumption> logs){

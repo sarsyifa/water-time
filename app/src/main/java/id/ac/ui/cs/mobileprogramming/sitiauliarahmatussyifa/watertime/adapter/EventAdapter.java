@@ -10,11 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.BreakIterator;
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.Event;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.WaterConsumption;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.R;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {

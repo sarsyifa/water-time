@@ -20,16 +20,6 @@
         android:textColor="#434141"
         android:textSize="10sp" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/welcome_textView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/date_textView"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:text="Hi, Syifa"-->
-<!--        android:textColor="@color/colorPrimaryDark"-->
-<!--        android:textSize="24sp" />-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_profile"
         android:layout_width="match_parent"
@@ -109,27 +99,5 @@
         android:layout_below="@id/progressBar"
         android:layout_marginBottom="-32dp"
         tools:listitem="@layout/log_item" />
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/edit_button"-->
-<!--        style="@android:style/Widget.Holo.ImageButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_above="@id/intake_textView"-->
-<!--        android:layout_marginLeft="350px"-->
-<!--        android:layout_marginTop="33dp"-->
-<!--        android:layout_toEndOf="@id/intake_textView"-->
-<!--        android:background="#00FFFFFF"-->
-<!--        android:textColor="@color/colorPrimary"-->
-<!--        app:srcCompat="@android:drawable/ic_menu_edit" />-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/floatingActionButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="top|end"-->
-<!--        android:clickable="true"-->
-<!--        app:srcCompat="@android:drawable/ic_menu_delete" />-->
-
 
 </RelativeLayout>

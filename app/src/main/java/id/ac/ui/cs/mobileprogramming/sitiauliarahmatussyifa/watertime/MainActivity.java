@@ -1,8 +1,5 @@
 package id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,10 +7,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -21,25 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.Settings;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CursorAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.time.DayOfWeek;
-import java.time.Month;
 import java.util.Calendar;
 import java.util.List;
 
@@ -49,7 +34,6 @@ import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.Use
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.WaterConsumption;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.viewmodel.UserViewModel;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.viewmodel.WaterConsumptionViewModel;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.R;
 
 public class MainActivity extends AppCompatActivity {
     public static final int NEW_LOG_ACTIVITY_REQUEST_CODE = 1;
@@ -58,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int EDIT_PROFILE_REQUEST = 4;
     private WaterConsumptionViewModel mLogViewModel;
     private UserViewModel userViewModel;
-    private TextView tvName;
-    private String nameProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                    addAndEditContacts(false, null, -1);
                 Intent intent = new Intent(MainActivity.this, NewLogActivity.class);
                 startActivityForResult(intent, NEW_LOG_ACTIVITY_REQUEST_CODE);
             }
@@ -157,16 +138,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        ImageButton editProfile = findViewById(R.id.edit_button);
-//        editProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-//
-//                startActivityForResult(intent, ADD_PROFILE_REQUEST);
-//            }
-//        });
-
         uAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(User viewProfile) {
@@ -180,52 +151,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        FloatingActionButton button = findViewById(R.id.floatingActionButton);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                userViewModel.deleteAllUsers();
-//            }
-//        });
-
     }
-
-//    @Override
-//    public void onWindowAttributesChanged(WindowManager.LayoutParams params) {
-//        super.onWindowAttributesChanged(params);
-//    final ProgressBar progressBar = findViewById(R.id.progressBar);
-//        TextView tv_max = findViewById(R.id.goal_textView);
-//        tv_max.setText("/ 2000");
-//
-//        mLogViewModel.getTotalConsumption().observe(this, new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                if (integer == null) {
-//                    int total = 0;
-//                } else {
-//                    int total = integer;
-//                    progressBar.setMax(2000);
-//                    progressBar.setProgress(total, false);
-//                }
-//            }
-//        });
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivityForResult(new Intent(Settings.ACTION_LOCALE_SETTINGS), 0);
             return true;
@@ -234,17 +171,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intenReminder);
             return true;
         }
-//        else if (id == R.id.edit_profile) {
-////            MenuItem editProfile = findViewById(R.id.edit_profile);
-//            Intent intentProfile = new Intent(MainActivity.this, ProfileActivity.class);
-////                intentProfile.putExtra(ProfileActivity.EXTRA_UID, viewProfile.getId());
-////                intentProfile.putExtra(ProfileActivity.EXTRA_NAME, viewProfile.getName());
-////                intentProfile.putExtra(ProfileActivity.EXTRA_AGE, viewProfile.getAge());
-////                intentProfile.putExtra(ProfileActivity.EXTRA_WEIGHT, viewProfile.getWeight());
-////                intentProfile.putExtra(ProfileActivity.EXTRA_HEIGHT, viewProfile.getHeight());
-//            startActivityForResult(intentProfile, ADD_PROFILE_REQUEST);
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -260,10 +186,6 @@ public class MainActivity extends AppCompatActivity {
             mLogViewModel.addLog(log);
             Toast.makeText(this, R.string.toast_log_saved, Toast.LENGTH_SHORT).show();
 
-//            TextView tv_intake = findViewById(R.id.progress_textView);
-//            String st = String.valueOf(mLogViewModel.getTotalConsumption());
-//            tv_intake.setText(st);
-
         } else if (requestCode == EDIT_LOG_REQUEST && resultCode == RESULT_OK) {
             long id = data.getLongExtra(NewLogActivity.EXTRA_ID, -1);
             if (id == -1) {
@@ -278,10 +200,6 @@ public class MainActivity extends AppCompatActivity {
             mLogViewModel.updateLog(log);
             Toast.makeText(this, R.string.toast_log_updated, Toast.LENGTH_SHORT).show();
 
-//            TextView tv_intake = findViewById(R.id.progress_textView);
-//            String st = String.valueOf(mLogViewModel.getTotalConsumption());
-//            tv_intake.setText(st);
-//            Toast.makeText(this, "nambah jadi" + st, Toast.LENGTH_LONG).show();;
         } else if (requestCode == ADD_PROFILE_REQUEST && resultCode == RESULT_OK) {
             int height = data.getIntExtra(ProfileActivity.EXTRA_HEIGHT, 160);
             int weight = data.getIntExtra(ProfileActivity.EXTRA_WEIGHT, 55);
