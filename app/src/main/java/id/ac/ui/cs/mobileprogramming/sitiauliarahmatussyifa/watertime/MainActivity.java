@@ -222,11 +222,6 @@ public class MainActivity extends AppCompatActivity {
             usr.setId(id);
             userViewModel.updateUser(usr);
             Toast.makeText(this, R.string.toast_profile_updated, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.toast_not_save,
-                    Toast.LENGTH_LONG).show();
         }
     }
 
