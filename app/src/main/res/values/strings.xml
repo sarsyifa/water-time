@@ -23,4 +23,21 @@
 
     <string name="reminder_title">Reminders</string>
 
+    <string name="add_reminder_label">Add Reminders</string>
+    <string name="hint_msg">Enter Message</string>
+    <string name="toast_select_dt">Please select date and time</string>
+    <string name="toast_enter_text">Please Enter the text</string>
+    <string name="btn_time">Select Time</string>
+    <string name="btn_date">Select Date</string>
+    <string name="done_btn">ADD</string>
+    <string name="backround_text_reminders">No Reminders Set\nClick + to add the reminders</string>
+
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="toast_deleted_alarm">Alarm deleted</string>
 </resources>

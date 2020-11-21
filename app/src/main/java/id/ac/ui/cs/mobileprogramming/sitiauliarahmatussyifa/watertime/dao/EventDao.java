@@ -1,6 +1,5 @@
 package id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -21,9 +20,6 @@ public interface EventDao {
 
     @Delete
     public void delete(Event reminders);
-
-//    @Query("Select * from table_event order by remindDate")
-//    public List<Event> orderThetable();
 
     @Query("Select * from table_event Limit 1")
     public Event getRecentEnteredData();

@@ -64,7 +64,6 @@ public class WaterConsumptionAdapter extends RecyclerView.Adapter<WaterConsumpti
     }
 
     class WaterConsumptionViewHolder extends RecyclerView.ViewHolder {
-//        private final TextView logItemView;
         private TextView textViewAmount;
         private TextView textViewDate;
         private TextView textViewTime;
@@ -72,7 +71,6 @@ public class WaterConsumptionAdapter extends RecyclerView.Adapter<WaterConsumpti
 
         public WaterConsumptionViewHolder(View itemView) {
             super(itemView);
-//            logItemView = itemView.findViewById(R.id.water_drunk);
             textViewAmount = itemView.findViewById(R.id.water_drunk);
             textViewDate = itemView.findViewById(R.id.date);
             textViewTime = itemView.findViewById(R.id.time);

@@ -229,6 +229,10 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivityForResult(new Intent(Settings.ACTION_LOCALE_SETTINGS), 0);
             return true;
+        } else if (id == R.id.reminder_menu) {
+            Intent intenReminder = new Intent(MainActivity.this, ReminderActivity.class);
+            startActivity(intenReminder);
+            return true;
         }
 //        else if (id == R.id.edit_profile) {
 ////            MenuItem editProfile = findViewById(R.id.edit_profile);

@@ -3,15 +3,12 @@ package id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.repositor
 import android.app.Application;
 import android.os.AsyncTask;
 
-import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.dao.EventDao;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.dao.UserDao;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.database.WaterConsumptionDatabase;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.Event;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.User;
 
 public class EventRepository {
     private EventDao eventDao;
@@ -41,7 +38,7 @@ public class EventRepository {
         new EventRepository.DeleteEventAsyncTask(eventDao).execute(e);
     }
 
-    public void deleteAllUsers() {
+    public void deleteAllEvents() {
         new EventRepository.DeleteAllEventsAsyncTask(eventDao).execute();
     }
 

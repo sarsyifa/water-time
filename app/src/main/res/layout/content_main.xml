@@ -102,6 +102,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_water_consumption"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/progressBar"
+        android:layout_marginBottom="-32dp"
+        tools:listitem="@layout/log_item" />
 
 <!--    <ImageButton-->
 <!--        android:id="@+id/edit_button"-->
