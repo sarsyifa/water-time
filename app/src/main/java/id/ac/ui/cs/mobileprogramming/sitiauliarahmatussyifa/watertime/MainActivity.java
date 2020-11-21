@@ -1,5 +1,8 @@
 package id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,23 +10,36 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.arch.core.util.Function;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.Settings;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CursorAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.time.DayOfWeek;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.List;
 
@@ -102,9 +118,44 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                    addAndEditContacts(false, null, -1);
+                Intent intent = new Intent(MainActivity.this, NewLogActivity.class);
+                startActivityForResult(intent, NEW_LOG_ACTIVITY_REQUEST_CODE);
             }
         });
 
+        final TextView tv_intake = findViewById(R.id.progress_textView);
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        TextView tv_max = findViewById(R.id.goal_textView);
+        tv_max.setText("/ 2000");
+
+        mLogViewModel.getTotalConsumption().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer == null) {
+                    int total = 0;
+                    tv_intake.setText("0");
+                } else {
+                    int total = integer;
+                    tv_intake.setText(String.valueOf(total));
+                    progressBar.setMax(2000);
+                    progressBar.setProgress(total, false);
+                }
+            }
+        });
+
+        RecyclerView recyclerView2 = findViewById(R.id.recycler_view_profile);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView2.setHasFixedSize(true);
+        final UserAdapter uAdapter = new UserAdapter(this);
+        recyclerView2.setAdapter(uAdapter);
+
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        userViewModel.getmAllUsers().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(@Nullable List<User> users) {
+                uAdapter.setUsers(users);
+            }
+        });
 
 //        ImageButton editProfile = findViewById(R.id.edit_button);
 //        editProfile.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +167,18 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        uAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(User viewProfile) {
+                Intent intentProfile = new Intent(MainActivity.this, ProfileActivity.class);
+                intentProfile.putExtra(ProfileActivity.EXTRA_UID, viewProfile.getId());
+                intentProfile.putExtra(ProfileActivity.EXTRA_NAME, viewProfile.getName());
+                intentProfile.putExtra(ProfileActivity.EXTRA_AGE, viewProfile.getAge());
+                intentProfile.putExtra(ProfileActivity.EXTRA_WEIGHT, viewProfile.getWeight());
+                intentProfile.putExtra(ProfileActivity.EXTRA_HEIGHT, viewProfile.getHeight());
+                startActivityForResult(intentProfile, EDIT_PROFILE_REQUEST);
+            }
+        });
 
 //        FloatingActionButton button = findViewById(R.id.floatingActionButton);
 //        button.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivityForResult(new Intent(Settings.ACTION_LOCALE_SETTINGS), 0);
             return true;
         }
 //        else if (id == R.id.edit_profile) {
@@ -214,7 +278,29 @@ public class MainActivity extends AppCompatActivity {
 //            String st = String.valueOf(mLogViewModel.getTotalConsumption());
 //            tv_intake.setText(st);
 //            Toast.makeText(this, "nambah jadi" + st, Toast.LENGTH_LONG).show();;
-        }  else {
+        } else if (requestCode == ADD_PROFILE_REQUEST && resultCode == RESULT_OK) {
+            int height = data.getIntExtra(ProfileActivity.EXTRA_HEIGHT, 160);
+            int weight = data.getIntExtra(ProfileActivity.EXTRA_WEIGHT, 55);
+            String name = data.getStringExtra(ProfileActivity.EXTRA_NAME);
+            String age =  data.getStringExtra(ProfileActivity.EXTRA_AGE);
+            User usr = new User(name, age, height, weight);
+            userViewModel.addUser(usr);
+            Toast.makeText(this, R.string.toast_log_saved, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == EDIT_PROFILE_REQUEST && resultCode == RESULT_OK) {
+            long id = data.getLongExtra(ProfileActivity.EXTRA_UID, -1);
+            if (id == -1) {
+                Toast.makeText(this, R.string.profile_not_updated, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            int height = data.getIntExtra(ProfileActivity.EXTRA_HEIGHT, 160);
+            int weight = data.getIntExtra(ProfileActivity.EXTRA_WEIGHT, 55);
+            String name = data.getStringExtra(ProfileActivity.EXTRA_NAME);
+            String age =  data.getStringExtra(ProfileActivity.EXTRA_AGE);
+            User usr = new User(name, age, height, weight);
+            usr.setId(id);
+            userViewModel.updateUser(usr);
+            Toast.makeText(this, R.string.toast_profile_updated, Toast.LENGTH_SHORT).show();
+        } else {
             Toast.makeText(
                     getApplicationContext(),
                     R.string.toast_not_save,

@@ -28,7 +28,6 @@ public class NewLogActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_log);
-//        mEditLogView = findViewById(R.id.edit_log);
         editTextAmount = findViewById(R.id.amount);
         editTextDate = findViewById(R.id.date_picker);
         editTextTime = findViewById(R.id.weight);

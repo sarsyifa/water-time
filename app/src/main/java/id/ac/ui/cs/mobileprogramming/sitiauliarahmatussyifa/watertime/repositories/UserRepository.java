@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.net.UnknownServiceException;
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.dao.UserDao;

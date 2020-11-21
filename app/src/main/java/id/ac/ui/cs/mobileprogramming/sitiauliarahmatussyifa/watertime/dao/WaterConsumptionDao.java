@@ -28,4 +28,7 @@ public interface WaterConsumptionDao {
 
     @Query("SELECT * FROM water_consumption ORDER BY wid ASC")
     public LiveData<List<WaterConsumption>> getAllLog();
+
+    @Query("SELECT SUM(log_water_drunk) as total FROM water_consumption")
+    public LiveData<Integer> totalConsumption();
 }

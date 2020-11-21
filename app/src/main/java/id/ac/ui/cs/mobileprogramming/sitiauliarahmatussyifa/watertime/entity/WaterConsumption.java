@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
-
 @Entity(tableName = "water_consumption")
 public class WaterConsumption {
     @ColumnInfo(name = "wid")
