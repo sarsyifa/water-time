@@ -1,14 +1,24 @@
 package id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -16,10 +26,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,11 +48,27 @@ import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.Wat
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.viewmodel.UserViewModel;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.viewmodel.WaterConsumptionViewModel;
 
+import static android.telephony.TelephonyManager.NETWORK_TYPE_1xRTT;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_CDMA;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_EDGE;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_EVDO_0;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_EVDO_A;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_EVDO_B;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_GPRS;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_HSDPA;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_HSPA;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_HSPAP;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_IDEN;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_LTE;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_NR;
+import static android.telephony.TelephonyManager.NETWORK_TYPE_UMTS;
+
 public class MainActivity extends AppCompatActivity {
     public static final int NEW_LOG_ACTIVITY_REQUEST_CODE = 1;
     public static final int EDIT_LOG_REQUEST = 2;
     public static final int ADD_PROFILE_REQUEST = 3;
     public static final int EDIT_PROFILE_REQUEST = 4;
+    private int PHONE_STATE_PERMISSION_CODE = 5;
     private WaterConsumptionViewModel mLogViewModel;
     private UserViewModel userViewModel;
 
@@ -76,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
             }
+
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 mLogViewModel.deleteLog(adapter.getLogAt(viewHolder.getAdapterPosition()));
@@ -151,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
@@ -164,12 +195,20 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            startActivityForResult(new Intent(Settings.ACTION_LOCALE_SETTINGS), 0);
+//            startActivityForResult(new Intent(Settings.ACTION_LOCALE_SETTINGS), 0);
+//            return true;
+            Intent intentSetting = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.fromParts("package", getPackageName(), null));
+            intentSetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentSetting);
             return true;
         } else if (id == R.id.reminder_menu) {
             Intent intenReminder = new Intent(MainActivity.this, ReminderActivity.class);
             startActivity(intenReminder);
             return true;
+        } else if (id == R.id.calculator_menu) {
+            Intent intentCalculator = new Intent(MainActivity.this, CalculatorActivity.class);
+            startActivity(intentCalculator);
         }
 
         return super.onOptionsItemSelected(item);

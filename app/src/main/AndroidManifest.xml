@@ -28,6 +28,8 @@
         <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.ProfileActivity"
             android:parentActivityName="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.MainActivity">
         </activity>
+        <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.CalculatorActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.ReminderActivity" android:parentActivityName=".MainActivity" />
         <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.NotificationMessage"></activity>
         <activity android:name="id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.CreateEvent" />
