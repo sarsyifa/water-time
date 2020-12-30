@@ -11,13 +11,6 @@ add_library(
         SHARED
         watercalc-jni.cpp)
 
-#find_library( # Sets the name of the path variable.
-#        log-lib
-#
-#        # Specifies the name of the NDK library that
-#        # you want CMake to locate.
-#        log )
-
 target_link_libraries(
         watercalc-jni
         android
