@@ -32,12 +32,18 @@ public class CalculatorActivity extends AppCompatActivity {
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input_weight = findViewById(R.id.et_weight_calculator);
-                int uWeight = Integer.parseInt(input_weight.getText().toString());
-                int target = calculateTarget(uWeight);
-                suggestTextView = findViewById(R.id.tv_result);
-                Log.d("suggest daily intake" , Integer.toString(target));
-                suggestTextView.setText(Integer.toString(target)+" mL");
+                try {
+                    input_weight = findViewById(R.id.et_weight_calculator);
+                    int uWeight = Integer.parseInt(input_weight.getText().toString());
+                    int target = calculateTarget(uWeight);
+                    suggestTextView = findViewById(R.id.tv_result);
+                    Log.d("WaterCalculator", "input " +  input_weight.getText() + ", suggest daily intake " + Integer.toString(target) + " mL");
+                    suggestTextView.setText(Integer.toString(target)+" mL");
+                } catch (NumberFormatException e) {
+                    Log.d("WaterCalculator", " "+ e);
+                    Toast.makeText(CalculatorActivity.this, "Enter number!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
