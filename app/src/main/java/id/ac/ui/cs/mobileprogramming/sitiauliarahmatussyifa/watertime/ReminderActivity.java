@@ -15,22 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.adapter.EventAdapter;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.dao.EventDao;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.database.WaterConsumptionDatabase;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.Event;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.repositories.EventRepository;
-import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.R;
 
 public class ReminderActivity extends AppCompatActivity {
 

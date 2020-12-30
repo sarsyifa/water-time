@@ -131,6 +131,6 @@ Kelas   : TKTPL - A
 
 11.  Menerapkan Notifikasi atas event-event penting yang terjadi saat aplikasi dalam keadaan lost focus.
 
-    Pada aplikasi ini terdapat notifikasi menggunakan NotificationManager untuk mengirimkan
-    notifikasi kepada pengguna. Aplikasi memberikan notifikasi reminder jika suatu alarm sudah
-    pada waktunya.
+     Pada aplikasi ini terdapat notifikasi menggunakan NotificationManager untuk mengirimkan
+     notifikasi kepada pengguna. Aplikasi memberikan notifikasi reminder jika suatu alarm sudah
+     pada waktunya.

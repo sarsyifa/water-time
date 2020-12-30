@@ -2,10 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="id.ac.ui.cs.mobileprogramming.syifa.watertime.id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.MainActivity">
-<!--    <item-->
-<!--        android:id="@+id/edit_profile"-->
-<!--        android:title="Edit Profile"-->
-<!--        />-->
     <item
         android:id="@+id/calculator_menu"
         android:title="@string/calculator_menu_label"
@@ -18,10 +14,6 @@
         android:id="@+id/share_menu"
         android:title="@string/share_text"
         />
-<!--    <item-->
-<!--        android:id="@+id/cube_menu"-->
-<!--        android:title="@string/cube_text"-->
-<!--        />-->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

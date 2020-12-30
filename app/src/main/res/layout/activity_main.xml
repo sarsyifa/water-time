@@ -33,16 +33,4 @@
         app:rippleColor="@android:color/white"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="top|end"-->
-<!--        android:layout_marginTop="65dp"-->
-<!--        android:background="#00FFFFFF"-->
-<!--        android:backgroundTint="#FFFFFF"-->
-<!--        android:src="@android:drawable/ic_menu_share"-->
-<!--        android:tint="#000000"-->
-<!--        android:onClick="checkPermission"-->
-<!--        app:backgroundTint="#FFFFFF" />-->
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -32,7 +32,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -196,8 +195,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-//            startActivityForResult(new Intent(Settings.ACTION_LOCALE_SETTINGS), 0);
-//            return true;
             Intent intentSetting = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                     Uri.fromParts("package", getPackageName(), null));
             intentSetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -221,10 +218,6 @@ public class MainActivity extends AppCompatActivity {
                 checkPermission();
             }
         }
-//        else if (id == R.id.cube_menu) {
-//            Intent intentCube = new Intent(MainActivity.this, CubeActivity.class);
-//            startActivity(intentCube);
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -378,11 +371,6 @@ public class MainActivity extends AppCompatActivity {
             usr.setId(id);
             userViewModel.updateUser(usr);
             Toast.makeText(this, R.string.toast_profile_updated, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.toast_not_save,
-                    Toast.LENGTH_LONG).show();
         }
     }
 

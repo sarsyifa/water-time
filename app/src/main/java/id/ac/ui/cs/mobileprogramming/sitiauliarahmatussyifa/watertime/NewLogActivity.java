@@ -44,24 +44,6 @@ public class NewLogActivity extends AppCompatActivity {
             setTitle(R.string.add_water_title);
         }
 
-//        final Button button = findViewById(R.id.button_save);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-//                Intent replyIntent = new Intent();
-//                if (TextUtils.isEmpty(editTextAmount.getText())) {
-//                    setResult(RESULT_CANCELED, replyIntent);
-//                } else {
-//                    String amount = editTextAmount.getText().toString();
-//                    String date = editTextDate.getText().toString();
-//                    String time = editTextTime.getText().toString();
-//                    replyIntent.putExtra(EXTRA_AMOUNT, amount);
-//                    replyIntent.putExtra(EXTRA_DATE, date);
-//                    replyIntent.putExtra(EXTRA_TIME, time);
-//                    setResult(RESULT_OK, replyIntent);
-//                }
-//                finish();
-//            }
-//        });
     }
 
     private void saveLog() {
