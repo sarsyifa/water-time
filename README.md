@@ -63,7 +63,6 @@ Kelas   : TKTPL - A
 
     b.  Melakukan Binding antara ViewModel dengan Model.
         WaterConsumptionViewModel ↔ WaterConsumption
-
         UserViewModel ↔ User
 
         The adapter caches data and populates the RecyclerView with it. The inner class WaterConsumptionViewHolder holds and manages a view for one list item.
@@ -98,3 +97,40 @@ Kelas   : TKTPL - A
         Class Event akan berisi reminder yang sudah ditentukan kapan harusnya alarm dinyalakan.
 
     Dalam room terdapat tiga komponen utama: Database, DAO (Data Access Object), dan Entity. Setiap komponen memiliki tanggung jawabnya, dan ketiganya harus diimplementasikan agar sistem berfungsi. Entity berperan sebagai Model kelas ini yang akan disimpan di Database. Tabel database eksklusif dibuat untuk setiap kelas yang diberi anotasi @Entity. DAO adalah interface yang dianotasikan dengan @Dao yang memediasi akses ke objek dalam database dan tabelnya. Ada empat anotasi khusus untuk operasi dasar DAO: @Insert, @Update, @Delete, dan @Query. Komponen Database adalah kelas abstrak dengan anotasi @Database, yang memperluas RoomDatabase. Kelas mendefinisikan daftar Entity dan DAO-nya.
+
+6.  Menerapkan Runtime Permission
+
+    Pada saat menekan tombol Share, aplikasi akan mengakses status konektivitas yang digunakan pada
+    saat itu dengan mengakses ACCESS_NETWORK_STATE dan ACCESS_WIFI_STATE, untuk mengetahui tipe
+    jaringan yang digunakan diperlukan membaca READ_PHONE_STATE. User akan mendapatkan runtime p
+    ermission pada saat aplikasi akan mengakses TelephonyMagager. Apabila dilakukan allow permission,
+    maka aplikasi dapat melakukan getDataNetworkType() dari koneksi yang digunakan pada saat itu.
+    Sehingga aplikasi dapat mendeteksi status konektivitas beserta network type yang digunakan.
+
+7.  Memanfaatkan JNI (Java Native Interface)
+
+    Terdapat tambahan menu baru Water Calculator untuk menghitung daily water intake berdasarkan
+    berat badan. Menu ini akan memanggil CalculatorActivity. Perhitungannya memanfaatkan fungsi
+    library native C sederhana
+
+    Kemudian pada CalculatorActivity dilakukan pemanggilaan library watercalc-jni
+
+8.  Menampilkan animasi dengan OpenGL
+
+    Pada saat pindah Activity dari MainActivity ke CalculatorActivity akan terdapat loading screen
+    yang dibuat menggunakan OpenGL. Loading screen berupa sebuah Cube yang di-rotate untuk
+    menggambarkan bahwa terdapat loading selama 1.5 seconds.
+
+9.  Memanfaatkan ConnectivityManager untuk mengetahui status konektifitas yang dihubungkan dengan fitur tertentu.
+
+    User dapat membagikan aktivitasnya mengenai penggunaan aplikasi Water Time di Twitter dengan
+    cara memilih menu Share. Karena untuk melakukan share diperlukan koneksi internet, pada saat
+    menekan tombol Share, aplikasi akan mengakses status konektivitas yang digunakan pada saat itu.
+
+10.  Menerapkan service background yang berhubungan dengan tampilan / aplikasi utama. Cth: Service pemutar lagu tetap berjalan walaupun tampilan/aplikasi utama sedang lost focus.
+
+11.  Menerapkan Notifikasi atas event-event penting yang terjadi saat aplikasi dalam keadaan lost focus.
+
+    Pada aplikasi ini terdapat notifikasi menggunakan NotificationManager untuk mengirimkan
+    notifikasi kepada pengguna. Aplikasi memberikan notifikasi reminder jika suatu alarm sudah
+    pada waktunya.

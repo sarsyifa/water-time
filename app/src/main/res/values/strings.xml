@@ -37,4 +37,7 @@
     <string name="your_weight_text">Your weight is</string>
     <string name="suggest_intake_text">Suggest daily water intake</string>
     <string name="calculate_btn">Calculate</string>
+
+    <string name="cube_text">Cube</string>
+    <string name="share_text">Share</string>
 </resources>

@@ -45,6 +45,7 @@ import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.adapter.Us
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.adapter.WaterConsumptionAdapter;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.User;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.entity.WaterConsumption;
+import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.opengl.CubeActivity;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.viewmodel.UserViewModel;
 import id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime.viewmodel.WaterConsumptionViewModel;
 
@@ -207,11 +208,127 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intenReminder);
             return true;
         } else if (id == R.id.calculator_menu) {
-            Intent intentCalculator = new Intent(MainActivity.this, CalculatorActivity.class);
+            Intent intentCalculator = new Intent(MainActivity.this, CubeActivity.class);
             startActivity(intentCalculator);
+        } else if (id == R.id.share_menu) {
+            if (ContextCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(MainActivity.this, "You have already granted this permission!", Toast.LENGTH_SHORT).show();
+                checkConnection();
+                // If you want to passing twitterIntent to Twitter app without connection uncomment this part. BUT sending a tweet still needed a connection
+//                sendTweet();
+            } else {
+                checkPermission();
+            }
         }
+//        else if (id == R.id.cube_menu) {
+//            Intent intentCube = new Intent(MainActivity.this, CubeActivity.class);
+//            startActivity(intentCube);
+//        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_PHONE_STATE)) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Permission needed")
+                    .setMessage("This permission is needed to access the current cellular network information by indicating the radio technology (network type)")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.READ_PHONE_STATE}, PHONE_STATE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_PHONE_STATE}, PHONE_STATE_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PHONE_STATE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void checkConnection() {
+        String type;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+
+        switch (telephonyManager.getDataNetworkType()) {
+            case NETWORK_TYPE_EDGE:
+            case NETWORK_TYPE_GPRS:
+            case NETWORK_TYPE_CDMA:
+            case NETWORK_TYPE_IDEN:
+            case NETWORK_TYPE_1xRTT:
+                type = "2G";
+                break;
+            case NETWORK_TYPE_UMTS:
+            case NETWORK_TYPE_HSDPA:
+            case NETWORK_TYPE_HSPA:
+            case NETWORK_TYPE_HSPAP:
+            case NETWORK_TYPE_EVDO_0:
+            case NETWORK_TYPE_EVDO_A:
+            case NETWORK_TYPE_EVDO_B:
+                type = "3G";
+                break;
+            case NETWORK_TYPE_LTE:
+                type = "4G";
+                break;
+            case NETWORK_TYPE_NR:
+                type = "5G";
+                break;
+            default:
+                type = "Unknown";
+        }
+
+        if (null != activeNetwork) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                Log.d("checkConnection", "Wifi enabled");
+                Toast.makeText(this, "Wifi Enabled", Toast.LENGTH_SHORT).show();
+            }
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                Log.d("checkConnection", "Data network enabled: " + type);
+                Toast.makeText(this, "Data Network Enabled: " + type, Toast.LENGTH_SHORT).show();
+            }
+            // This sendTweet can open Twitter application if theres a connection
+            sendTweet();
+        } else {
+            Log.d("checkConnection", "No internet connection");
+            Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void sendTweet() {
+        String msg = "Hello, I'm using Water Time. Water Time helps you to records your water intake every day #WaterTime";
+        Uri uri = Uri
+                .parse("android.resource://id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime/drawable/ic_watertime");
+        Intent intentTwitter = new Intent();
+        intentTwitter.setAction(Intent.ACTION_SEND);
+        intentTwitter.putExtra(Intent.EXTRA_TEXT, msg);
+        intentTwitter.setType("text/plain");
+        intentTwitter.putExtra(Intent.EXTRA_STREAM, uri);
+        intentTwitter.setType("image/png");
+        intentTwitter.setPackage("com.twitter.android");
+        startActivity(intentTwitter);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -261,6 +378,11 @@ public class MainActivity extends AppCompatActivity {
             usr.setId(id);
             userViewModel.updateUser(usr);
             Toast.makeText(this, R.string.toast_profile_updated, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.toast_not_save,
+                    Toast.LENGTH_LONG).show();
         }
     }
 
