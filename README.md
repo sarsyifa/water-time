@@ -62,9 +62,9 @@ Kelas   : TKTPL - A
 
 
     b.  Melakukan Binding antara ViewModel dengan Model.
+    
         WaterConsumptionViewModel ↔ WaterConsumption
         UserViewModel ↔ User
-
         The adapter caches data and populates the RecyclerView with it. The inner class WaterConsumptionViewHolder holds and manages a view for one list item.
 
 4.  Menerapkan Assets dengan benar
