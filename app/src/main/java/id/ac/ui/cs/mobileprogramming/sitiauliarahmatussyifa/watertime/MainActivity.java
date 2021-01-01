@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,10 +33,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -195,6 +199,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+//            startActivityForResult(new Intent(Settings.ACTION_LOCALE_SETTINGS), 0);
+//            return true;
             Intent intentSetting = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                     Uri.fromParts("package", getPackageName(), null));
             intentSetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -261,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkConnection() {
         String type;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -302,11 +309,22 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("checkConnection", "Data network enabled: " + type);
                 Toast.makeText(this, "Data Network Enabled: " + type, Toast.LENGTH_SHORT).show();
             }
+
             // This sendTweet can open Twitter application if theres a connection
             sendTweet();
+
         } else {
             Log.d("checkConnection", "No internet connection");
             Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String urlEncode(String s) {
+        try {
+            return URLEncoder.encode(s, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.wtf("urlEncode", "UTF-8 should always be supported", e);
+            return "";
         }
     }
 
@@ -315,12 +333,29 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = Uri
                 .parse("android.resource://id.ac.ui.cs.mobileprogramming.sitiauliarahmatussyifa.watertime/drawable/ic_watertime");
         Intent intentTwitter = new Intent();
-        intentTwitter.setAction(Intent.ACTION_SEND);
-        intentTwitter.putExtra(Intent.EXTRA_TEXT, msg);
-        intentTwitter.setType("text/plain");
-        intentTwitter.putExtra(Intent.EXTRA_STREAM, uri);
-        intentTwitter.setType("image/png");
-        intentTwitter.setPackage("com.twitter.android");
+        // Check is Twitter installed
+        try {
+            boolean twitterInstalled = false;
+            PackageInfo packageInfo = getPackageManager().getPackageInfo("com.twitter.android", 0);
+            String getPackageName = packageInfo.toString();
+
+            if (getPackageName.equals("com.twitter.android")) {
+                twitterInstalled = true;
+
+                intentTwitter.setAction(Intent.ACTION_SEND);
+                intentTwitter.putExtra(Intent.EXTRA_TEXT, msg);
+                intentTwitter.setType("text/plain");
+                intentTwitter.putExtra(Intent.EXTRA_STREAM, uri);
+                intentTwitter.setType("image/png");
+                intentTwitter.setPackage("com.twitter.android");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("SHARE", "Twitter App not found on device");
+            intentTwitter.putExtra(Intent.EXTRA_TEXT, msg);
+            intentTwitter.setAction(Intent.ACTION_VIEW);
+            intentTwitter.setData(Uri.parse("https://twitter.com/intent/tweet?text=" + urlEncode(msg)));
+        }
+
         startActivity(intentTwitter);
     }
 
