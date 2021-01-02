@@ -129,6 +129,8 @@ Kelas   : TKTPL - A
 
 10.  Menerapkan service background yang berhubungan dengan tampilan / aplikasi utama. Cth: Service pemutar lagu tetap berjalan walaupun tampilan/aplikasi utama sedang lost focus.
 
+     Executing a PendingIntent from a notification.
+
 11.  Menerapkan Notifikasi atas event-event penting yang terjadi saat aplikasi dalam keadaan lost focus.
 
      Pada aplikasi ini terdapat notifikasi menggunakan NotificationManager untuk mengirimkan
